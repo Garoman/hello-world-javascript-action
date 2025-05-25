@@ -8,6 +8,10 @@ inputs:
     description: Who to greet
     required: true
     default: World
+  role-arn:
+    description: Role Arn
+    required: true
+    default: arn:aws:iam::038462754764:role/GitHubActionsTargetRole
 
 # Define your outputs here.
 outputs:
