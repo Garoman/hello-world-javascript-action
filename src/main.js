@@ -7,8 +7,8 @@ const roleRegex = /arn:aws:iam::[0-9]{12}:.*/g
 const audience = 'sts.amazonaws.com'
 const region = process.env.REGION || 'eu-west-1'
 
-const stsClient = new STSClient({ region })
-const s3Client = new S3Client({ region })
+let stsClient = new STSClient({ region })
+let s3Client = new S3Client({ region })
 
 /**
  * The main function for the action.
@@ -50,6 +50,7 @@ export async function run() {
     core.exportVariable('AWS_SECRET_ACCESS_KEY', secretKey)
     core.exportVariable('AWS_SESSION_TOKEN', sessionToken)
 
+    stsClient = new STSClient({ region })
     command = new GetCallerIdentityCommand({})
     response = await stsClient.send(command)
     core.info(response?.UserId)
@@ -87,6 +88,7 @@ export async function run() {
     core.exportVariable('AWS_SECRET_ACCESS_KEY', secretKey)
     core.exportVariable('AWS_SESSION_TOKEN', sessionToken)
 
+    stsClient = new STSClient({ region })
     command = new GetCallerIdentityCommand({})
     response = await stsClient.send(command)
     core.info(response?.UserId)
